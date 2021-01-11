@@ -1,0 +1,2 @@
+export const peer_connection_string = 'mongodb+srv://woo:woo@peerwithgcp-pri.hsnt9.mongodb.net/user?retryWrites=true&w=majority'
+export const standard_connection_string = 'mongodb+srv://woo:woo@peerwithgcp.hsnt9.mongodb.net/user?retryWrites=true&w=majority'
