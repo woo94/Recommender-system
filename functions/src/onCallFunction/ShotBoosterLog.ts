@@ -35,12 +35,7 @@ export const ShotBoosterLog = functions.https.onCall(async (data, context): Prom
     let ret_rHandler: r.recommendation
     try {
         const mongoResult = await MongoFunc(userData, filterData)
-        if(mongoResult === 'no-result') {
-            return {
-                type: 'no-result',
-            }
-        }
-        else if(mongoResult instanceof RecommendationHandler) {
+        if(mongoResult instanceof RecommendationHandler) {
             ret_rHandler = mongoResult.retrieve()
         }
         else {
@@ -72,7 +67,7 @@ export const ShotBoosterLog = functions.https.onCall(async (data, context): Prom
     }
 })
 
-async function MongoFunc(userData:f.UserDictionary, filterData: f.FilterDictionary): Promise< ProcessWorker | RecommendationHandler | 'no-result' > {
+async function MongoFunc(userData:f.UserDictionary, filterData: f.FilterDictionary): Promise< ProcessWorker | RecommendationHandler> {
     const m_userDoc = create_solo_user(userData)
     const filterOption = parseFilterOption(filterData)
 
@@ -128,9 +123,7 @@ async function MongoFunc(userData:f.UserDictionary, filterData: f.FilterDictiona
                     },
                 },
             },
-            { $set: { distance: { $floor: "$distance" } } },
             { $limit: 20 },
-            { $sort: { distance: 1 } },
             { $unset: "_ct" },
         ]).toArray()
 
