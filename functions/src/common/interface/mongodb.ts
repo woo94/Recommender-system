@@ -99,12 +99,12 @@ export function _logGen(triggBy: string, destTo: string, code: number): _log {
             triggBy: triggBy,
             destTo: destTo,
             code: code,
-            message: message
+            message: message,
         }
 }
 
 export interface mlist_detail {
-    ids: [id1: string, id2: string];
+    ids: Array<string>;
     cdit: number;
     type: 's' | 'g';
     logs: Array<_log>;

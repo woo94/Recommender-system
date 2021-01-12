@@ -9,7 +9,7 @@ async function runTransactionWithRetry(func: (client: MongoClient, session:Clien
     // abort and commit is executed in the main caller function
     const retryLimit = 5;
     const result: TransactionResult = {
-        type: 'fail'
+        type: 'fail',
     }
     
     let counter = 0;
@@ -40,7 +40,7 @@ async function runTransactionWithRetry(func: (client: MongoClient, session:Clien
 export async function runCommitWithRetry(session: ClientSession): Promise<TransactionResult> {
     const retryLimit = 5
     const result: TransactionResult = {
-        type: 'fail'
+        type: 'fail',
     }
     
     let counter = 0

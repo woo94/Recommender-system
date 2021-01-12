@@ -27,5 +27,5 @@ export const scheduler:indexableTAGlist = {
     UpdateTriggerGroup: UpdateTriggerGroup,
     PauseUserInstantly: PauseUserInstantly,
     PauseGroups: PauseGroups,
-    RecognizeGroupByLeader: RecognizeGroupByLeader
+    RecognizeGroupByLeader: RecognizeGroupByLeader,
 }

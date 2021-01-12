@@ -19,11 +19,11 @@ export class Criteria {
     protected t_Exponent_group: number;
     protected d_Exponent_group: number;
 
-    protected constructor(myInfo: solo_user, filterOption: filterOption, myGroup: Array<group_user>) {
-        this.myInfo = Object.assign(myInfo, filterOption)
+    protected constructor(myInfo: solo_user, _filterOption: filterOption, myGroup: Array<group_user>) {
+        this.myInfo = Object.assign(myInfo, _filterOption)
         this.myGroup = myGroup
-        this.numberOfRecommendation = 20
-        this.numberOfGroup = 4
+        this.numberOfRecommendation = 5
+        this.numberOfGroup = 1
 
         this.solo_fo1 = new Map()
         this.solo_fo2 = new Map()
@@ -40,7 +40,6 @@ export class Criteria {
         this.setBasedOnSolo_fo4()
         this.setBasedOnSolo_fo1()
         this.defineMaxCoefficient_solo()
-        this.defineNumberOfGroup()
     }
 
     private upsertMap(mapName: 'solo_fo1' | 'solo_fo2' | 'solo_fo3', ...keys: Array<number>): void {
@@ -188,22 +187,5 @@ export class Criteria {
         
         this.maxCoefficient_solo = totalVal
         this.maxBase_solo = Math.floor(10000 / this.maxCoefficient_solo)
-    }
-
-    private defineNumberOfGroup():void {
-        if([1, 3, 5, 7].includes(this.myInfo.fo1)) {
-            this.numberOfGroup++
-            if(this.myInfo.fo1 === 1) {
-                this.numberOfGroup++   
-            }
-        }
-        
-        if([3, 5, 8].includes(this.myInfo.fo2)) {
-            this.numberOfGroup++   
-        }
-        
-        if([0, 1, 5].includes(this.myInfo.fo3)) {
-            this.numberOfGroup++   
-        }
     }
 }

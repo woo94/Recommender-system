@@ -16,7 +16,7 @@ export function create_solo_user(userData: UserDictionary): m.solo_user {
             type: 'Point',
             coordinates: [userData.lo2/1000000, userData.lo1/1000000],
         },
-        _ct: new Date()
+        _ct: new Date(),
     }
 }
 
@@ -47,9 +47,9 @@ export function create_group_user(groupData: GroupDictionary): m.group_user {
         status: true,
         location: {
             type: "Point",
-            coordinates: [groupData.lo2/1000000, groupData.lo1/1000000]
+            coordinates: [groupData.lo2/1000000, groupData.lo1/1000000],
         },
-        _ct: new Date()
+        _ct: new Date(),
     }
 }
 
@@ -60,7 +60,7 @@ export function create_mmlist(id: string, type: 's' | 'g'): m.mmlist {
         type: type,
         dlist_solo: [],
         dlist_group: [],
-        _ct: new Date()
+        _ct: new Date(),
     }
 }
 
@@ -71,9 +71,9 @@ export function create_mlist_detail(triggBy: string, destTo: string, code: numbe
         cdit: cdit,
         type: type,
         logs: [
-            m._logGen(triggBy, destTo, code)
+            m._logGen(triggBy, destTo, code),
         ],
-        _ct: new Date()
+        _ct: new Date(),
     }
 }
 

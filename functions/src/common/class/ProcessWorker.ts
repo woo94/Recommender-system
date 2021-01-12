@@ -19,7 +19,7 @@ export class ProcessWorker {
             scheduled_process: ps.scheduler[TAG],
             process_counter: 0,
             error_process: '',
-            error_message: ''
+            error_message: '',
         }
     }
 

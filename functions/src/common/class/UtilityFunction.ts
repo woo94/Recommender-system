@@ -16,7 +16,7 @@ export class UtilityFunction extends Criteria {
         return {
             total: this.numberOfRecommendation,
             solo: this.numberOfRecommendation - this.numberOfGroup,
-            group: this.numberOfGroup
+            group: this.numberOfGroup,
         }
     }
 

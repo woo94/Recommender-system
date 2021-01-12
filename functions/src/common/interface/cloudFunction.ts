@@ -1,4 +1,4 @@
 export interface onCallReturn {
-    type: 'alreadyPassed' | 'success' | 'error';
+    type: 'alreadyPassed' | 'success' | 'error' | 'no-result';
     error?: string
 }

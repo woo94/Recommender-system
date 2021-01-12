@@ -15,13 +15,10 @@ export interface filterOption {
 }
 
 export interface recommendation {
-    isEmpty: boolean;
-
+    isSufficient: boolean;
     metadata: {
         sex: boolean;
-
         totalNum: number;
-
         soloNum: number;
         groupNum: number;
     }

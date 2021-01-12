@@ -27,15 +27,20 @@ export const ShotBoosterLog = functions.https.onCall(async (data, context): Prom
     else {
         return {
             type: 'error',
-            error: 'No context.auth'
+            error: 'No context.auth',
         }
     }
-    let filterData: f.FilterDictionary = data.filterData
+    const filterData: f.FilterDictionary = data.filterData
 
     let ret_rHandler: r.recommendation
     try {
         const mongoResult = await MongoFunc(userData, filterData)
-        if(mongoResult instanceof RecommendationHandler) {
+        if(mongoResult === 'no-result') {
+            return {
+                type: 'no-result',
+            }
+        }
+        else if(mongoResult instanceof RecommendationHandler) {
             ret_rHandler = mongoResult.retrieve()
         }
         else {
@@ -43,7 +48,7 @@ export const ShotBoosterLog = functions.https.onCall(async (data, context): Prom
             console.log(worker)
             return {
                 type: 'error',
-                error: worker.error_message
+                error: worker.error_message,
             }
         }
     }
@@ -51,7 +56,7 @@ export const ShotBoosterLog = functions.https.onCall(async (data, context): Prom
         console.log(e)
         return {
             type: 'error',
-            error: e.message
+            error: e.message,
         }
     }
 
@@ -63,11 +68,11 @@ export const ShotBoosterLog = functions.https.onCall(async (data, context): Prom
 
 
     return {
-        type: 'success'
+        type: 'success',
     }
 })
 
-async function MongoFunc(userData:f.UserDictionary, filterData: f.FilterDictionary): Promise< ProcessWorker | RecommendationHandler> {
+async function MongoFunc(userData:f.UserDictionary, filterData: f.FilterDictionary): Promise< ProcessWorker | RecommendationHandler | 'no-result' > {
     const m_userDoc = create_solo_user(userData)
     const filterOption = parseFilterOption(filterData)
 
@@ -119,14 +124,14 @@ async function MongoFunc(userData:f.UserDictionary, filterData: f.FilterDictiona
                         type: 's',
                         id: { $nin: [myId, ...dlist_solo] },
                         lt: { $gt: m_userDoc.lt - (86400 * 14) },
-                        bt: { $gt: filterOption.minBt - (2 * 10000), $lt: filterOption.maxBt + (2 * 10000)}
-                    }
-                }
+                        bt: { $gt: filterOption.minBt - (2 * 10000), $lt: filterOption.maxBt + (2 * 10000)},
+                    },
+                },
             },
             { $set: { distance: { $floor: "$distance" } } },
             { $limit: 20 },
             { $sort: { distance: 1 } },
-            { $unset: "_ct" }
+            { $unset: "_ct" },
         ]).toArray()
 
         worker.inc_counter()
